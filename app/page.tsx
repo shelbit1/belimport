@@ -8,6 +8,7 @@ interface Product {
   productName: string;
   productDescription: string;
   tnvedCode: string;
+  marksCount: string;
   volume: string;
   grossWeight: string;
   netWeight: string;
@@ -28,6 +29,7 @@ const initialProduct: Omit<Product, "id"> = {
   productName: "",
   productDescription: "",
   tnvedCode: "",
+  marksCount: "",
   volume: "",
   grossWeight: "",
   netWeight: "",
@@ -112,10 +114,11 @@ export default function Home() {
       "Наименование",
       "Характеристика (состав)",
       "Код ТНВЭД",
-      "Объем, м³",
-      "Брутто, кг",
-      "Нетто, кг",
-      "Стоимость, $",
+      "Кол-во марок ЧЗ",
+      "Объем, м³ всей партии",
+      "Брутто, кг всей партии",
+      "Нетто, кг всей партии",
+      "Стоимость, $ всей партии",
     ]);
 
     // Данные товаров
@@ -125,6 +128,7 @@ export default function Home() {
         product.productName,
         product.productDescription,
         product.tnvedCode,
+        product.marksCount,
         product.volume,
         product.grossWeight,
         product.netWeight,
@@ -141,10 +145,11 @@ export default function Home() {
       { wch: 25 }, // Наименование
       { wch: 30 }, // Характеристика
       { wch: 12 }, // ТНВЭД
-      { wch: 12 }, // Объем
-      { wch: 12 }, // Брутто
-      { wch: 12 }, // Нетто
-      { wch: 15 }, // Стоимость
+      { wch: 15 }, // Кол-во марок ЧЗ
+      { wch: 20 }, // Объем
+      { wch: 20 }, // Брутто
+      { wch: 20 }, // Нетто
+      { wch: 22 }, // Стоимость
     ];
 
     XLSX.writeFile(workbook, "белый_импорт_заявка.xlsx");
@@ -217,40 +222,49 @@ export default function Home() {
                   className="w-24"
                 />
                 <CompactField
-                  label="Объем, м³"
+                  label="Кол-во марок ЧЗ"
+                  value={product.marksCount}
+                  onChange={(v) =>
+                    handleProductChange(product.id, "marksCount", v)
+                  }
+                  type="number"
+                  className="w-24"
+                />
+                <CompactField
+                  label="Объем, м³ всей партии"
                   value={product.volume}
                   onChange={(v) =>
                     handleProductChange(product.id, "volume", v)
                   }
                   type="number"
-                  className="w-20"
+                  className="w-32"
                 />
                 <CompactField
-                  label="Брутто, кг"
+                  label="Брутто, кг всей партии"
                   value={product.grossWeight}
                   onChange={(v) =>
                     handleProductChange(product.id, "grossWeight", v)
                   }
                   type="number"
-                  className="w-20"
+                  className="w-32"
                 />
                 <CompactField
-                  label="Нетто, кг"
+                  label="Нетто, кг всей партии"
                   value={product.netWeight}
                   onChange={(v) =>
                     handleProductChange(product.id, "netWeight", v)
                   }
                   type="number"
-                  className="w-20"
+                  className="w-32"
                 />
                 <CompactField
-                  label="Стоимость, $"
+                  label="Стоимость, $ всей партии"
                   value={product.cost}
                   onChange={(v) =>
                     handleProductChange(product.id, "cost", v)
                   }
                   type="number"
-                  className="w-24"
+                  className="w-32"
                 />
                 {products.length > 1 && (
                   <button
