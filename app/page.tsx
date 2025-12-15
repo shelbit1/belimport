@@ -91,7 +91,7 @@ export default function Home() {
     // Общие данные
     sheetData.push(["Страна отправки", formData.countryFrom]);
     sheetData.push(["Город отправки", formData.cityFrom]);
-    sheetData.push(["Условия поставки", formData.deliveryTerms]);
+    sheetData.push(["Условия доставки", formData.deliveryTerms]);
     sheetData.push(["Город назначения", formData.cityTo]);
     sheetData.push([
       "Экспортная лицензия у поставщика",
@@ -175,10 +175,21 @@ export default function Home() {
               value={formData.cityFrom}
               onChange={(v) => handleChange("cityFrom", v)}
             />
-            <FormField
-              label="Условия поставки"
+            <SelectField
+              label="Условия доставки"
               value={formData.deliveryTerms}
               onChange={(v) => handleChange("deliveryTerms", v)}
+              options={[
+                { value: "", label: "Выберите..." },
+                {
+                  value: "Море (дольше и дешевле)",
+                  label: "Море (дольше и дешевле)",
+                },
+                {
+                  value: "Машиной (быстрее и дороже)",
+                  label: "Машиной (быстрее и дороже)",
+                },
+              ]}
             />
             <FormField
               label="Город назначения"
